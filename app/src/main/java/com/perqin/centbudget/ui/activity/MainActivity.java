@@ -1,16 +1,34 @@
-package com.perqin.centbudget;
+package com.perqin.centbudget.ui.activity;
 
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.perqin.centbudget.R;
+
 public class MainActivity extends AppCompatActivity {
+    private DrawerLayout mDrawerLayout;
+    private Toolbar mToolbar;
+    private NavigationView mNavDrawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mDrawerLayout = (DrawerLayout)findViewById(R.id.main_drawer_layout);
+
+        mToolbar = (Toolbar)findViewById(R.id.main_toolbar);
+        mToolbar.setNavigationIcon(R.drawable.ic_menu_white);
+        mToolbar.setTitle(R.string.accounts);
+
+        mNavDrawer = (NavigationView)findViewById(R.id.nav_drawer);
+
+        setSupportActionBar(mToolbar);
     }
 
     @Override
@@ -28,7 +46,8 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == android.R.id.home) {
+            mDrawerLayout.openDrawer(mNavDrawer);
             return true;
         }
 
