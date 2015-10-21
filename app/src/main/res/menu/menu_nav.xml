@@ -1,15 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/nav_accounts"
-        android:title="@string/accounts"
-        android:orderInCategory="1"/>
-    <item
-        android:id="@+id/nav_charts"
-        android:title="@string/charts"
-        android:orderInCategory="2"/>
-    <item
-        android:id="@+id/nav_settings"
-        android:title="@string/settings"
-        android:orderInCategory="3"/>
+    <group
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_accounts"
+            android:title="@string/accounts"
+            android:orderInCategory="1"
+            android:icon="@drawable/ic_accounts_grey600_24dp"/>
+        <item
+            android:id="@+id/nav_charts"
+            android:title="@string/charts"
+            android:orderInCategory="2"
+            android:icon="@drawable/ic_charts_grey600_24dp"/>
+    </group>
+    <group
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_settings"
+            android:title="@string/settings"
+            android:orderInCategory="3"
+            android:icon="@drawable/ic_settings_grey600_24dp"
+            android:checkable="false"/>
+    </group>
 </menu>

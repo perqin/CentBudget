@@ -4,7 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_add_account"
-        android:title="@string/app_name"
+        android:title="@string/add_account"
         android:orderInCategory="100"
+        android:icon="@drawable/ic_add_white_24dp"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/action_add_account_more"
+        android:title="@string/app_name"
+        android:orderInCategory="200"
         app:showAsAction="never" />
 </menu>

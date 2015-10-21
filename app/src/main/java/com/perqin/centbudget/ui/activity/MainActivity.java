@@ -13,35 +13,37 @@ import com.perqin.centbudget.ui.fragment.AccountsFragment;
 public class MainActivity extends AppCompatActivity implements
         AccountsFragment.OnFragmentInteractionListener,
         NavigationView.OnNavigationItemSelectedListener {
+    // Static variables for Navigation Menu
     public static final int NAV_ACCOUNTS = 0;
     public static final int NAV_CHARTS = 1;
     public static final int NAV_SETTINGS = 2;
+    public static final boolean[] NAV_CHECKABLE = {true, true, false};
 
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavDrawer;
 
     private void navigateTo(int navPage) {
-        Fragment fragment = null;
         switch (navPage) {
             case NAV_ACCOUNTS:
-                fragment = AccountsFragment.newInstance(this);
-                mNavDrawer.setCheckedItem(R.id.nav_accounts);
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_frame, AccountsFragment.newInstance(this))
+                        .commit();
                 break;
             case NAV_CHARTS:
                 // TODO
 //                fragment = AccountsFragment.newInstance();
-                mNavDrawer.setCheckedItem(R.id.nav_charts);
+//                getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, fragment).commit();
                 break;
             case NAV_SETTINGS:
                 // TODO
 //                fragment = AccountsFragment.newInstance();
-                mNavDrawer.setCheckedItem(R.id.nav_settings);
                 break;
             default:
                 break;
         }
-        if (fragment != null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, fragment).commit();
+        if (NAV_CHECKABLE[navPage]) {
+            mNavDrawer.getMenu().getItem(navPage).setChecked(true);
         }
         mDrawerLayout.closeDrawer(mNavDrawer);
     }
