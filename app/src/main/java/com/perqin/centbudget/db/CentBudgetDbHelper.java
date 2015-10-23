@@ -1,8 +1,13 @@
 package com.perqin.centbudget.db;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import java.util.ArrayList;
 
 /**
  * Cent Budget database change log
@@ -13,18 +18,92 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Version  : 1
  * Date     : 2015/10/21
  * Log      :
- *      Add     table   accounts
- *
+ *      Add     database    cent_budget_db
+ *      Add     table       cent_budget_db:accounts
+ *      Add     column      cent_budget_db:accounts:_id
+ *      Add     column      cent_budget_db:accounts:display_name
+ *      Add     column      cent_budget_db:accounts:_aid
  */
 
 public class CentBudgetDbHelper extends SQLiteOpenHelper {
-    public CentBudgetDbHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+    // Singleton
+    private static CentBudgetDbHelper mInstance;
+
+    // Version
+    public static final int DB_VERSION = 1;
+
+    // Database name
+    public static final String DB_NAME = "cent_budget_db";
+
+    // Tables
+    public static final String TABLE_ACCOUNTS = "accounts";
+//    public static final String TABLE_ACCOUNT_ALL = "account_all";
+
+    // Columns - Common
+    public static final String COLUMN_ID = "_id";
+
+    // Columns - accounts
+    public static final String COLUMN_ACCOUNTS_DISPLAY_NAME = "display_name";
+//    public static final String COLUMN_ACCOUNTS_AID = "aid";
+
+    // Queries
+    public static final String Q_CREATE_TABLE_ACCOUNTS = "CREATE TABLE " + TABLE_ACCOUNTS + " ( "
+            + COLUMN_ID + " INTEGER PRIMARY KEY "
+            +", " + COLUMN_ACCOUNTS_DISPLAY_NAME + " TEXT "
+            + ")";
+
+    private CentBudgetDbHelper(Context context) {
+        super(context, DB_NAME, null, DB_VERSION);
+    }
+
+    public static synchronized CentBudgetDbHelper getInstance(Context context) {
+        if (mInstance == null) {
+            mInstance = new CentBudgetDbHelper(context.getApplicationContext());
+        }
+        return mInstance;
+    }
+
+    // CRUD - Create Read Update Delete
+
+    public boolean createInAccounts(Account account) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_ACCOUNTS_DISPLAY_NAME, account.display_name);
+//        values.put(COLUMN_ACCOUNTS_AID, account.aid);
+        long status = database.insert(TABLE_ACCOUNTS, null, values);
+        return status != -1;
+    }
+
+    public ArrayList<Account> readAllInAccounts() {
+        ArrayList<Account> list = new ArrayList<Account>();
+        String query = "SELECT * FROM " + TABLE_ACCOUNTS;
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                Account account = new Account();
+                account._id = Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_ID)));
+                account.display_name = cursor.getString(cursor.getColumnIndex(COLUMN_ACCOUNTS_DISPLAY_NAME));
+//                account.aid = Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_ACCOUNTS_AID)));
+                list.add(account);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return list;
+    }
+
+    public boolean deleteInAccounts(Account account) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        String where = COLUMN_ID + " = ?";
+        String[] args = {String.valueOf(account._id)};
+        int deleted = database.delete(TABLE_ACCOUNTS, where, args);
+        return deleted != 0;
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // TODO
+        // Create tables
+        db.execSQL(Q_CREATE_TABLE_ACCOUNTS);
     }
 
     @Override

@@ -4,18 +4,24 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.perqin.centbudget.R;
+import com.perqin.centbudget.db.Account;
+import com.perqin.centbudget.db.DbFactory;
 import com.perqin.centbudget.ui.adapter.AccountsPagerAdapter;
 
 public class AccountsFragment extends Fragment
-        implements Toolbar.OnMenuItemClickListener {
+        implements
+        Toolbar.OnMenuItemClickListener,
+        AccountsPagerAdapter.OnDataSetChangedListener {
       // TOxDO: Rename parameter arguments, choose names that match
 //    private static final String ARG_PARAM1 = "param1";
 //    private static final String ARG_PARAM2 = "param2";
@@ -23,6 +29,8 @@ public class AccountsFragment extends Fragment
     // TOxDO: Rename and change types of parameters
 //    private String mParam1;
 //    private String mParam2;
+
+    public static final int INDEX_LAST = -1;
 
     private Toolbar mToolbar;
     private TabLayout mTabBar;
@@ -44,6 +52,17 @@ public class AccountsFragment extends Fragment
 
     public AccountsFragment() {}
 
+    // TODO
+    private void addAccount() {
+        Account account = new Account();
+        account.display_name = "Acc " + mPagerAdapter.getCount();
+        mPagerAdapter.addAccount(account);
+    }
+
+    private void deleteAccount() {
+        mPagerAdapter.deleteAccount(mViewPager.getCurrentItem());
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +79,7 @@ public class AccountsFragment extends Fragment
         mToolbar = (Toolbar)view.findViewById(R.id.accounts_title_toolbar);
         mTabBar = (TabLayout)view.findViewById(R.id.accounts_tab_bar);
         mViewPager = (ViewPager)view.findViewById(R.id.accounts_view_pager);
-        mPagerAdapter = new AccountsPagerAdapter(getChildFragmentManager());
+        mPagerAdapter = new AccountsPagerAdapter(getActivity(), getChildFragmentManager());
 
         mToolbar.setNavigationIcon(R.drawable.ic_menu_white);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -75,10 +94,24 @@ public class AccountsFragment extends Fragment
         mToolbar.inflateMenu(R.menu.menu_accounts);
         mToolbar.setOnMenuItemClickListener(this);
 
-        mViewPager.setAdapter(mPagerAdapter);
-
-        mTabBar.setupWithViewPager(mViewPager);
         mTabBar.setTabMode(TabLayout.MODE_SCROLLABLE);
+        mTabBar.setSelectedTabIndicatorColor(ContextCompat.getColor(getActivity(), R.color.white));
+
+        mViewPager.setAdapter(mPagerAdapter);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+            @Override
+            public void onPageSelected(int position) {
+                mToolbar.getMenu().findItem(R.id.action_delete_account).setVisible(position != 0);
+            }
+            @Override
+            public void onPageScrollStateChanged(int state) {}
+        });
+
+        mPagerAdapter.setOnDataSetChangedListener(this);
+        mPagerAdapter.updateDataSet();
+        mPagerAdapter.notifyDataSetChanged();
 
         return view;
     }
@@ -102,10 +135,26 @@ public class AccountsFragment extends Fragment
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.action_add_account:
+                addAccount();
+                return true;
+            case R.id.action_delete_account:
+                deleteAccount();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onDataSetChanged(int current) {
+        mViewPager.setCurrentItem(0);
+        mTabBar.setupWithViewPager(mViewPager);
+        mViewPager.setCurrentItem(current);
     }
 
     public interface OnFragmentInteractionListener {
-        public void onNavigationIconClicked();
+        void onNavigationIconClicked();
     }
 }

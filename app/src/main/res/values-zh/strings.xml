@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Cent Budget</string>
+    <string name="app_name">分分入账</string>
     <string name="accounts">账户</string>
     <string name="settings">设置</string>
     <string name="hello_world">你好，世界！</string>
     <string name="charts">图表</string>
     <string name="action_settings">设置</string>
     <string name="hello_blank_fragment">你好，空白fragment</string>
+    <string name="add_account">添加账户</string>
+    <string name="all">全部</string>
+    <string name="delete_account">删除账户</string>
 </resources>

@@ -9,8 +9,9 @@
         android:icon="@drawable/ic_add_white_24dp"
         app:showAsAction="ifRoom"/>
     <item
-        android:id="@+id/action_add_account_more"
-        android:title="@string/app_name"
+        android:id="@+id/action_delete_account"
+        android:title="@string/delete_account"
         android:orderInCategory="200"
-        app:showAsAction="never" />
+        app:showAsAction="never"
+        android:visible="false"/>
 </menu>
