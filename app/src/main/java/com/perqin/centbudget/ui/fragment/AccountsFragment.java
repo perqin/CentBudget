@@ -103,6 +103,7 @@ public class AccountsFragment extends Fragment
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
             @Override
             public void onPageSelected(int position) {
+                mToolbar.getMenu().findItem(R.id.action_edit_account).setVisible(position != 0);
                 mToolbar.getMenu().findItem(R.id.action_delete_account).setVisible(position != 0);
             }
             @Override
@@ -110,8 +111,7 @@ public class AccountsFragment extends Fragment
         });
 
         mPagerAdapter.setOnDataSetChangedListener(this);
-        mPagerAdapter.updateDataSet();
-        mPagerAdapter.notifyDataSetChanged();
+        mPagerAdapter.refreshAccounts(0);
 
         return view;
     }
@@ -137,10 +137,21 @@ public class AccountsFragment extends Fragment
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_add_account:
-                addAccount();
+//                addAccount();
+                if (mListener != null) {
+                    mListener.onAddAccountActionClicked();
+                }
+                return true;
+            case R.id.action_edit_account:
+                if (mListener != null) {
+                    mListener.onEditAccountActionClicked(mPagerAdapter.getAccount(mViewPager.getCurrentItem()));
+                }
                 return true;
             case R.id.action_delete_account:
-                deleteAccount();
+//                deleteAccount();
+                if (mListener != null) {
+                    mListener.onDeleteAccountActionClicked(mPagerAdapter.getAccount(mViewPager.getCurrentItem()));
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -156,5 +167,8 @@ public class AccountsFragment extends Fragment
 
     public interface OnFragmentInteractionListener {
         void onNavigationIconClicked();
+        void onAddAccountActionClicked();
+        void onEditAccountActionClicked(Account account);
+        void onDeleteAccountActionClicked(Account account);
     }
 }

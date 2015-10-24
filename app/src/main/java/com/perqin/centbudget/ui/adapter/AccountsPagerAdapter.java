@@ -25,15 +25,18 @@ public class AccountsPagerAdapter extends FragmentStatePagerAdapter {
 
     public void addAccount(Account account) {
         DbFactory.createInAccounts(mContext, account);
-        updateDataSet();
-        notifyDataSetChangedWithCurrent(getCount() - 1);
+        refreshAccounts(getCount() - 1);
     }
 
     public void deleteAccount(int position) {
         DbFactory.deleteInAccount(mContext, mDataSet.get(position));
         int current = ((position == getCount() - 1) ? (position - 1) : position);
+        refreshAccounts(current);
+    }
+
+    public void refreshAccounts(int position) {
         updateDataSet();
-        notifyDataSetChangedWithCurrent(current);
+        notifyDataSetChangedWithCurrent(position);
     }
 
     public void updateDataSet() {
@@ -53,9 +56,9 @@ public class AccountsPagerAdapter extends FragmentStatePagerAdapter {
         mDataSet.add(all);
     }
 
-//    public Account getAccount(int i) {
-//        return mDataSet.get(i);
-//    }
+    public Account getAccount(int i) {
+        return mDataSet.get(i);
+    }
 
     @Override
     public int getCount() {

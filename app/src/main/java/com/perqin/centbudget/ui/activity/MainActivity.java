@@ -1,13 +1,19 @@
 package com.perqin.centbudget.ui.activity;
 
+import android.content.Intent;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.perqin.centbudget.R;
+import com.perqin.centbudget.db.Account;
 import com.perqin.centbudget.ui.fragment.AccountsFragment;
+import com.perqin.centbudget.utils.AppConst;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements
         AccountsFragment.OnFragmentInteractionListener,
@@ -20,6 +26,8 @@ public class MainActivity extends AppCompatActivity implements
 
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavDrawer;
+
+//    private ArrayList<Fragment> mFragments = new ArrayList<>();
 
     private void navigateTo(int navPage) {
         switch (navPage) {
@@ -77,9 +85,32 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
     // AccountsFragment.OnFragmentInteractionListener
     @Override
     public void onNavigationIconClicked() {
         mDrawerLayout.openDrawer(mNavDrawer);
+    }
+
+    @Override
+    public void onAddAccountActionClicked() {
+        Intent intent = new Intent(this, EditAccountActivity.class);
+        startActivityForResult(intent, AppConst.REQUEST_ADD_ACCOUNT);
+    }
+
+    @Override
+    public void onEditAccountActionClicked(Account account) {
+        Intent intent = new Intent(this, EditAccountActivity.class);
+        intent.putExtras(AppConst.getExtrasFromAccount(account));
+        startActivityForResult(intent, AppConst.REQUEST_EDIT_ACCOUNT);
+    }
+
+    @Override
+    public void onDeleteAccountActionClicked(Account account) {
+        // TODO
     }
 }
