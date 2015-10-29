@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.perqin.centbudget.R;
@@ -22,7 +23,7 @@ public class AccountsRecyclerAdapter extends RecyclerView.Adapter<AccountsRecycl
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         // TODO
-        viewHolder.textView.setText(mString);
+        viewHolder.mEntryCategoryTextView.setText(mString);
     }
 
     @Override
@@ -33,11 +34,18 @@ public class AccountsRecyclerAdapter extends RecyclerView.Adapter<AccountsRecycl
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        // TODO
-        public TextView textView;
+        public ImageView mEntryIconImageView;
+        public TextView mEntryCategoryTextView;
+        public TextView mEntryDetailTextView;
+        public TextView mEntryValueTextView;
+        public TextView mEntryDateTextView;
         public ViewHolder(View v) {
             super(v);
-            textView = (TextView)v.findViewById(R.id.tv);
+            mEntryIconImageView = (ImageView)v.findViewById(R.id.entry_icon_image_view);
+            mEntryCategoryTextView = (TextView)v.findViewById(R.id.entry_category_text_view);
+            mEntryDetailTextView = (TextView)v.findViewById(R.id.entry_detail_text_view);
+            mEntryValueTextView = (TextView)v.findViewById(R.id.entry_value_text_view);
+            mEntryDateTextView = (TextView)v.findViewById(R.id.entry_date_text_view);
         }
     }
 

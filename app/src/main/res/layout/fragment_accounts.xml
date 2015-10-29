@@ -41,5 +41,8 @@
         android:layout_margin="16dp"
         android:src="@drawable/ic_add_white_24dp"
         app:fabSize="normal"
-        app:backgroundTint="@color/pink_500"/>
+        app:backgroundTint="@color/pink_500"
+        app:layout_anchor="@id/accounts_view_pager"
+        app:layout_anchorGravity="bottom|right|end"
+        app:layout_behavior="com.perqin.centbudget.ui.extras.FABScrollBehavior"/>
 </android.support.design.widget.CoordinatorLayout>

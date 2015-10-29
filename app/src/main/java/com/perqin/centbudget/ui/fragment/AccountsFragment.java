@@ -2,6 +2,7 @@ package com.perqin.centbudget.ui.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.perqin.centbudget.R;
 import com.perqin.centbudget.db.Account;
@@ -34,6 +36,7 @@ public class AccountsFragment extends Fragment
     private TabLayout mTabBar;
     private ViewPager mViewPager;
     private AccountsPagerAdapter mPagerAdapter;
+    private FloatingActionButton mAddEntryFAB;
 
     private OnFragmentInteractionListener mListener;
 
@@ -86,6 +89,7 @@ public class AccountsFragment extends Fragment
         mTabBar = (TabLayout)view.findViewById(R.id.accounts_tab_bar);
         mViewPager = (ViewPager)view.findViewById(R.id.accounts_view_pager);
         mPagerAdapter = new AccountsPagerAdapter(getActivity(), getChildFragmentManager());
+        mAddEntryFAB = (FloatingActionButton)view.findViewById(R.id.add_entry_fab);
 
         mToolbar.setNavigationIcon(R.drawable.ic_menu_white);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -106,18 +110,30 @@ public class AccountsFragment extends Fragment
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
             @Override
             public void onPageSelected(int position) {
                 mToolbar.getMenu().findItem(R.id.action_edit_account).setVisible(position != 0);
                 mToolbar.getMenu().findItem(R.id.action_delete_account).setVisible(position != 0);
             }
+
             @Override
-            public void onPageScrollStateChanged(int state) {}
+            public void onPageScrollStateChanged(int state) {
+            }
         });
 
         mPagerAdapter.setOnDataSetChangedListener(this);
         mPagerAdapter.refreshAccounts(0);
+
+        mAddEntryFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO
+                Toast.makeText(getActivity(), "FAB is clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return view;
     }

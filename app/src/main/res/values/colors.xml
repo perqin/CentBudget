@@ -3,6 +3,8 @@
     <color name="primary">@color/amber_500</color>
     <color name="primary_dark">@color/amber_700</color>
     <color name="accent">@color/pink_500</color>
+    <color name="text_black_54">#8a000000</color>
+    <color name="text_black_87">#de000000</color>
 
     <!-- Color palette -->
     <color name="amber_50">#FFF8E1</color>
