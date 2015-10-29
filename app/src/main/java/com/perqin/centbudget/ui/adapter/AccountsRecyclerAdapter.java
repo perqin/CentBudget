@@ -4,12 +4,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.perqin.centbudget.R;
 
 import java.util.ArrayList;
 
 public class AccountsRecyclerAdapter extends RecyclerView.Adapter<AccountsRecyclerAdapter.ViewHolder> {
+    public String mString;
     private ArrayList<DataItem> mDataSet = new ArrayList<>();
 
     @Override
@@ -20,6 +22,7 @@ public class AccountsRecyclerAdapter extends RecyclerView.Adapter<AccountsRecycl
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         // TODO
+        viewHolder.textView.setText(mString);
     }
 
     @Override
@@ -31,8 +34,10 @@ public class AccountsRecyclerAdapter extends RecyclerView.Adapter<AccountsRecycl
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // TODO
+        public TextView textView;
         public ViewHolder(View v) {
             super(v);
+            textView = (TextView)v.findViewById(R.id.tv);
         }
     }
 

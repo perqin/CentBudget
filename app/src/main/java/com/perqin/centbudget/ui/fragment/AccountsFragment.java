@@ -30,8 +30,6 @@ public class AccountsFragment extends Fragment
 //    private String mParam1;
 //    private String mParam2;
 
-    public static final int INDEX_LAST = -1;
-
     private Toolbar mToolbar;
     private TabLayout mTabBar;
     private ViewPager mViewPager;
@@ -51,6 +49,14 @@ public class AccountsFragment extends Fragment
     }
 
     public AccountsFragment() {}
+
+    public void refreshViewPager() {
+        refreshViewPager(0);
+    }
+
+    public void refreshViewPager(int current) {
+        mPagerAdapter.refreshAccounts(current);
+    }
 
     // TODO
     private void addAccount() {
@@ -160,9 +166,14 @@ public class AccountsFragment extends Fragment
 
     @Override
     public void onDataSetChanged(int current) {
-//        mViewPager.setCurrentItem(0);
+        // TODO : handle last
+        mViewPager.setCurrentItem(0);
         mTabBar.setupWithViewPager(mViewPager);
-//        mViewPager.setCurrentItem(current);
+        if (current == AccountsPagerAdapter.INDEX_LAST) {
+            mViewPager.setCurrentItem(mPagerAdapter.getCount() - 1);
+        } else {
+            mViewPager.setCurrentItem(current);
+        }
     }
 
     public interface OnFragmentInteractionListener {

@@ -13,6 +13,7 @@ public class AppUtils {
     public static final String EXTRA_REQUEST_CODE = "REQUEST_CODE";
     public static final String EXTRA_ID = "ID";
     public static final String EXTRA_DISPLAY_NAME = "DISPLAY_NAME";
+    public static final String EXTRA_CURRENT = "CURRENT";
 
     public static Bundle getExtrasFromAccount(Account account) {
         Bundle bundle = new Bundle();

@@ -13,6 +13,8 @@ import com.perqin.centbudget.ui.fragment.AccountsPagerFragment;
 import java.util.ArrayList;
 
 public class AccountsPagerAdapter extends FragmentStatePagerAdapter {
+    public static final int INDEX_LAST = -1;
+
     private Context mContext;
     private ArrayList<Account> mDataSet = new ArrayList<>();
 
@@ -73,7 +75,7 @@ public class AccountsPagerAdapter extends FragmentStatePagerAdapter {
     // TODO : Args
     @Override
     public Fragment getItem(int position) {
-        return new AccountsPagerFragment();
+        return AccountsPagerFragment.newInstance("233 : " + mDataSet.get(position).display_name);
     }
 
     public void notifyDataSetChangedWithCurrent(int current) {

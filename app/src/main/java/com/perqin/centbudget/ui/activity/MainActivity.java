@@ -6,10 +6,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.perqin.centbudget.R;
 import com.perqin.centbudget.db.Account;
+import com.perqin.centbudget.ui.adapter.AccountsPagerAdapter;
 import com.perqin.centbudget.ui.fragment.AccountsFragment;
 import com.perqin.centbudget.utils.AppUtils;
 
@@ -24,7 +26,8 @@ public class MainActivity extends AppCompatActivity implements
     public static final int NAV_SETTINGS = 2;
     public static final boolean[] NAV_CHECKABLE = {true, true, false};
 
-    private ArrayList<Fragment> mNavFragments = new ArrayList<>();
+//    private ArrayList<Fragment> mNavFragments = new ArrayList<>();
+    private Fragment mCurrentNavFragment = null;
 
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavDrawer;
@@ -32,10 +35,13 @@ public class MainActivity extends AppCompatActivity implements
     private void navigateTo(int navPage) {
         switch (navPage) {
             case NAV_ACCOUNTS:
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.main_frame, AccountsFragment.newInstance(this))
-                        .commit();
+                if (!(mCurrentNavFragment instanceof AccountsFragment)) {
+                    mCurrentNavFragment = AccountsFragment.newInstance(this);
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.main_frame, mCurrentNavFragment)
+                            .commit();
+                }
                 break;
             case NAV_CHARTS:
                 // TODO
@@ -68,6 +74,26 @@ public class MainActivity extends AppCompatActivity implements
         navigateTo(NAV_ACCOUNTS);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case AppUtils.REQUEST_ADD_ACCOUNT:
+                switch (resultCode) {
+                    case EditAccountActivity.RES_OK:
+                        if (mCurrentNavFragment instanceof AccountsFragment) {
+                            ((AccountsFragment)mCurrentNavFragment).refreshViewPager(AccountsPagerAdapter.INDEX_LAST);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    // NavigationView.OnNavigationItemSelectedListener
     @Override
     public boolean onNavigationItemSelected(MenuItem menuItem) {
         switch (menuItem.getItemId()) {

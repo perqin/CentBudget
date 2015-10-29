@@ -5,6 +5,7 @@
     android:layout_height="72dp"
     android:background="@color/amber_100">
     <TextView
+        android:id="@+id/tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"

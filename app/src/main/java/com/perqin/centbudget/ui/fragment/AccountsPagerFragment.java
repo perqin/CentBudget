@@ -15,11 +15,11 @@ import com.perqin.centbudget.ui.adapter.AccountsRecyclerAdapter;
 public class AccountsPagerFragment extends Fragment {
     // TOxDO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-//    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM1 = "param1";
 //    private static final String ARG_PARAM2 = "param2";
 
     // TOxDO: Rename and change types of parameters
-//    private String mParam1;
+    private String mParam1;
 //    private String mParam2;
 
     private RecyclerView mRecyclerView;
@@ -27,12 +27,12 @@ public class AccountsPagerFragment extends Fragment {
     private AccountsRecyclerAdapter mAdapter;
 
     // TOxDO: Rename and change types and number of parameters
-    public static AccountsPagerFragment newInstance(String param1, String param2) {
+    public static AccountsPagerFragment newInstance(String param1) {
         AccountsPagerFragment fragment = new AccountsPagerFragment();
-//        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
 //        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -54,6 +54,10 @@ public class AccountsPagerFragment extends Fragment {
         mRecyclerView = (RecyclerView)view.findViewById(R.id.accounts_pager_recycler_view);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mAdapter = new AccountsRecyclerAdapter();
+
+        if (getArguments() != null) {
+            mAdapter.mString = getArguments().getString(ARG_PARAM1);
+        }
 
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);

@@ -1,5 +1,6 @@
 package com.perqin.centbudget.ui.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +14,9 @@ import com.perqin.centbudget.db.DbFactory;
 import com.perqin.centbudget.utils.AppUtils;
 
 public class EditAccountActivity extends AppCompatActivity {
+    public static final int RES_OK = 0;
+    public static final int RES_CANCEL = 1;
+
     private Bundle mExtrasFromIntent;
     private Toolbar mToolbar;
     private EditText mAccountNameEditText;
@@ -23,6 +27,9 @@ public class EditAccountActivity extends AppCompatActivity {
         account.display_name = mAccountNameEditText.getText().toString();
         if (mExtrasFromIntent.getInt(AppUtils.EXTRA_REQUEST_CODE) == AppUtils.REQUEST_ADD_ACCOUNT) {
             DbFactory.createInAccounts(this, account);
+//            Intent intent = new Intent();
+//            intent.putExtra(AppUtils.EXTRA_CURRENT, );
+            setResult(RES_OK);
         }
         finish();
     }
