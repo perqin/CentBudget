@@ -22,4 +22,5 @@
 
     <!--Content description -->
     <string name="cd_entry_icon">Entry icon</string>
+    <string name="title_activity_edit_entry">EditEntryActivity</string>
 </resources>
