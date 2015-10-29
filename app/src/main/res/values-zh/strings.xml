@@ -16,4 +16,5 @@
     <string name="icon">图标</string>
     <string name="initial_amount">初始金额</string>
     <string name="title_activity_edit_account">编辑账户</string>
+    <string name="edit_account">编辑账户</string>
 </resources>

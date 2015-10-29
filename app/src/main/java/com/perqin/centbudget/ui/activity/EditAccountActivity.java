@@ -5,14 +5,25 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 import com.perqin.centbudget.R;
+import com.perqin.centbudget.db.Account;
+import com.perqin.centbudget.db.DbFactory;
+import com.perqin.centbudget.utils.AppUtils;
 
 public class EditAccountActivity extends AppCompatActivity {
+    private Bundle mExtrasFromIntent;
     private Toolbar mToolbar;
+    private EditText mAccountNameEditText;
 
     private void saveChanges() {
         // TODO
+        Account account = new Account();
+        account.display_name = mAccountNameEditText.getText().toString();
+        if (mExtrasFromIntent.getInt(AppUtils.EXTRA_REQUEST_CODE) == AppUtils.REQUEST_ADD_ACCOUNT) {
+            DbFactory.createInAccounts(this, account);
+        }
         finish();
     }
 
@@ -30,12 +41,18 @@ public class EditAccountActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_account);
+        mExtrasFromIntent = getIntent().getExtras();
 
         mToolbar = (Toolbar)findViewById(R.id.edit_account_toolbar);
+        mAccountNameEditText = (EditText)findViewById(R.id.account_name_edit_text);
 
         mToolbar.setNavigationIcon(R.drawable.ic_done_white_24dp);
-        // TODO
-        mToolbar.setTitle(R.string.title_activity_edit_account);
+        if (mExtrasFromIntent.getInt(AppUtils.EXTRA_REQUEST_CODE) == AppUtils.REQUEST_ADD_ACCOUNT) {
+            mToolbar.setTitle(R.string.add_account);
+        } else {
+            mToolbar.setTitle(R.string.edit_account);
+            mAccountNameEditText.setText(mExtrasFromIntent.getString(AppUtils.EXTRA_DISPLAY_NAME));
+        }
 
         setSupportActionBar(mToolbar);
     }

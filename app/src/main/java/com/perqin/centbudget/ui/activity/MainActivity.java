@@ -11,7 +11,7 @@ import android.view.MenuItem;
 import com.perqin.centbudget.R;
 import com.perqin.centbudget.db.Account;
 import com.perqin.centbudget.ui.fragment.AccountsFragment;
-import com.perqin.centbudget.utils.AppConst;
+import com.perqin.centbudget.utils.AppUtils;
 
 import java.util.ArrayList;
 
@@ -24,10 +24,10 @@ public class MainActivity extends AppCompatActivity implements
     public static final int NAV_SETTINGS = 2;
     public static final boolean[] NAV_CHECKABLE = {true, true, false};
 
+    private ArrayList<Fragment> mNavFragments = new ArrayList<>();
+
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavDrawer;
-
-//    private ArrayList<Fragment> mFragments = new ArrayList<>();
 
     private void navigateTo(int navPage) {
         switch (navPage) {
@@ -85,11 +85,6 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
     // AccountsFragment.OnFragmentInteractionListener
     @Override
     public void onNavigationIconClicked() {
@@ -99,18 +94,24 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onAddAccountActionClicked() {
         Intent intent = new Intent(this, EditAccountActivity.class);
-        startActivityForResult(intent, AppConst.REQUEST_ADD_ACCOUNT);
+        startActivityForResult(intent, AppUtils.REQUEST_ADD_ACCOUNT);
     }
 
     @Override
     public void onEditAccountActionClicked(Account account) {
         Intent intent = new Intent(this, EditAccountActivity.class);
-        intent.putExtras(AppConst.getExtrasFromAccount(account));
-        startActivityForResult(intent, AppConst.REQUEST_EDIT_ACCOUNT);
+        intent.putExtras(AppUtils.getExtrasFromAccount(account));
+        startActivityForResult(intent, AppUtils.REQUEST_EDIT_ACCOUNT);
     }
 
     @Override
     public void onDeleteAccountActionClicked(Account account) {
         // TODO
+    }
+
+    @Override
+    public void startActivityForResult(Intent intent, int requestCode) {
+        intent.putExtra(AppUtils.EXTRA_REQUEST_CODE, requestCode);
+        super.startActivityForResult(intent, requestCode);
     }
 }

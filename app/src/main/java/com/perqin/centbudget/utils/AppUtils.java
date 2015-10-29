@@ -4,12 +4,13 @@ import android.os.Bundle;
 
 import com.perqin.centbudget.db.Account;
 
-public class AppConst {
+public class AppUtils {
     // Request code for EditAccountActivity
     public static final int REQUEST_ADD_ACCOUNT = 0;
     public static final int REQUEST_EDIT_ACCOUNT = 1;
 
     // Extra keys
+    public static final String EXTRA_REQUEST_CODE = "REQUEST_CODE";
     public static final String EXTRA_ID = "ID";
     public static final String EXTRA_DISPLAY_NAME = "DISPLAY_NAME";
 

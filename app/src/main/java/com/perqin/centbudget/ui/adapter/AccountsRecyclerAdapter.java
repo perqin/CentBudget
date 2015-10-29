@@ -25,7 +25,7 @@ public class AccountsRecyclerAdapter extends RecyclerView.Adapter<AccountsRecycl
     @Override
     public int getItemCount() {
         // TODO
-        return 20;
+        return 10;
 //        return mDataSet.size();
     }
 

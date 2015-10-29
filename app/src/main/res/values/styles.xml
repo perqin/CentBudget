@@ -1,6 +1,7 @@
 <resources>
     <style name="AppTheme" parent="Base.AppTheme">
-
+    </style>
+    <style name="AppTheme.TransparentStatusBar" parent="Base.AppTheme">
     </style>
     <style name="Base.AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/primary</item>
@@ -8,6 +9,10 @@
     </style>
 
     <style name="AppTheme.NoActionBar" parent="AppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="AppTheme.NoActionBar.TransparentStatusBar" parent="AppTheme.TransparentStatusBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>

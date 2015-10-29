@@ -148,10 +148,10 @@ public class AccountsFragment extends Fragment
                 }
                 return true;
             case R.id.action_delete_account:
-//                deleteAccount();
-                if (mListener != null) {
-                    mListener.onDeleteAccountActionClicked(mPagerAdapter.getAccount(mViewPager.getCurrentItem()));
-                }
+                deleteAccount();
+//                if (mListener != null) {
+//                    mListener.onDeleteAccountActionClicked(mPagerAdapter.getAccount(mViewPager.getCurrentItem()));
+//                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -160,9 +160,9 @@ public class AccountsFragment extends Fragment
 
     @Override
     public void onDataSetChanged(int current) {
-        mViewPager.setCurrentItem(0);
+//        mViewPager.setCurrentItem(0);
         mTabBar.setupWithViewPager(mViewPager);
-        mViewPager.setCurrentItem(current);
+//        mViewPager.setCurrentItem(current);
     }
 
     public interface OnFragmentInteractionListener {

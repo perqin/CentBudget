@@ -19,14 +19,21 @@
         <android.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <EditText
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:hint="@string/account_name"
-                android:singleLine="true"
-                android:ellipsize="end"
-                android:textSize="45sp"/>
+                android:layout_marginLeft="72dp"
+                android:layout_marginStart="72dp">
+                <EditText
+                    android:id="@+id/account_name_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:hint="@string/account_name"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:textSize="45sp"/>
+            </android.support.design.widget.TextInputLayout>
         </android.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
     <RelativeLayout

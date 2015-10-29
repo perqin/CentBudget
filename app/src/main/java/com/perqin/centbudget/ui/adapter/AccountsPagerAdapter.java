@@ -88,6 +88,11 @@ public class AccountsPagerAdapter extends FragmentStatePagerAdapter {
         notifyDataSetChangedWithCurrent(0);
     }
 
+    @Override
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
+    }
+
     public interface OnDataSetChangedListener {
         void onDataSetChanged(int current);
     }
