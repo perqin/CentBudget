@@ -136,6 +136,11 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
+    public void onAddEntryFABClicked() {
+        // TODO
+    }
+
+    @Override
     public void startActivityForResult(Intent intent, int requestCode) {
         intent.putExtra(AppUtils.EXTRA_REQUEST_CODE, requestCode);
         super.startActivityForResult(intent, requestCode);

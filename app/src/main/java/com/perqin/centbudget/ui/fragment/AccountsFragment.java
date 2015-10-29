@@ -197,5 +197,6 @@ public class AccountsFragment extends Fragment
         void onAddAccountActionClicked();
         void onEditAccountActionClicked(Account account);
         void onDeleteAccountActionClicked(Account account);
+        void onAddEntryFABClicked();
     }
 }

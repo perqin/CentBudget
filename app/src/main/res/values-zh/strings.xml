@@ -17,4 +17,10 @@
     <string name="initial_amount">初始金额</string>
     <string name="title_activity_edit_account">编辑账户</string>
     <string name="edit_account">编辑账户</string>
+    <string name="add_entry">添加条目</string>
+    <string name="category">分类</string>
+    <string name="cd_entry_icon">条目图标</string>
+    <string name="detail">详情</string>
+    <string name="edit_entry">编辑条目</string>
+    <string name="title_activity_edit_entry">添加或编辑条目</string>
 </resources>
