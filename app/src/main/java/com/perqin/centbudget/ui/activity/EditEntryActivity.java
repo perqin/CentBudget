@@ -1,18 +1,32 @@
 package com.perqin.centbudget.ui.activity;
 
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.perqin.centbudget.R;
 
 public class EditEntryActivity extends AppCompatActivity {
+    private Toolbar mToolbar;
+    private TabLayout mTabBar;
+    private ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_entry);
+
+        mToolbar = (Toolbar)findViewById(R.id.edit_entry_toolbar);
+        mTabBar = (TabLayout)findViewById(R.id.edit_entry_tab_bar);
+        mViewPager = (ViewPager)findViewById(R.id.edit_entry_view_pager);
+
+        mToolbar.setNavigationIcon(R.drawable.ic_done_white_24dp);
+
+        setSupportActionBar(mToolbar);
     }
 
     @Override

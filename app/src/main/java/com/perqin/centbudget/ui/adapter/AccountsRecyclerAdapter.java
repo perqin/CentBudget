@@ -1,19 +1,28 @@
 package com.perqin.centbudget.ui.adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.perqin.centbudget.R;
+import com.perqin.centbudget.ui.activity.EditEntryActivity;
 
 import java.util.ArrayList;
 
 public class AccountsRecyclerAdapter extends RecyclerView.Adapter<AccountsRecyclerAdapter.ViewHolder> {
     public String mString;
+//    private Context mContext;
     private ArrayList<DataItem> mDataSet = new ArrayList<>();
+
+//    public AccountsRecyclerAdapter(Context context) {
+//        mContext = context;
+//    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -41,6 +50,12 @@ public class AccountsRecyclerAdapter extends RecyclerView.Adapter<AccountsRecycl
         public TextView mEntryDateTextView;
         public ViewHolder(View v) {
             super(v);
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    v.getContext().startActivity(new Intent(v.getContext(), EditEntryActivity.class));
+                }
+            });
             mEntryIconImageView = (ImageView)v.findViewById(R.id.entry_icon_image_view);
             mEntryCategoryTextView = (TextView)v.findViewById(R.id.entry_category_text_view);
             mEntryDetailTextView = (TextView)v.findViewById(R.id.entry_detail_text_view);
