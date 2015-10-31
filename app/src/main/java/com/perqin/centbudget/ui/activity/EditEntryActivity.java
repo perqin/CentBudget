@@ -9,11 +9,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.perqin.centbudget.R;
+import com.perqin.centbudget.ui.adapter.EditEntryPagerAdapter;
 
 public class EditEntryActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private TabLayout mTabBar;
     private ViewPager mViewPager;
+    private EditEntryPagerAdapter mPagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +25,13 @@ public class EditEntryActivity extends AppCompatActivity {
         mToolbar = (Toolbar)findViewById(R.id.edit_entry_toolbar);
         mTabBar = (TabLayout)findViewById(R.id.edit_entry_tab_bar);
         mViewPager = (ViewPager)findViewById(R.id.edit_entry_view_pager);
+        mPagerAdapter = new EditEntryPagerAdapter(getSupportFragmentManager());
 
         mToolbar.setNavigationIcon(R.drawable.ic_done_white_24dp);
+
+        mViewPager.setAdapter(mPagerAdapter);
+
+        mTabBar.setupWithViewPager(mViewPager);
 
         setSupportActionBar(mToolbar);
     }
