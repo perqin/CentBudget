@@ -10,8 +10,12 @@ import android.view.MenuItem;
 
 import com.perqin.centbudget.R;
 import com.perqin.centbudget.ui.adapter.EditEntryPagerAdapter;
+import com.perqin.centbudget.ui.fragment.EditEntryDetailsFragment;
+import com.perqin.centbudget.ui.fragment.EditEntryNumPadFragment;
 
-public class EditEntryActivity extends AppCompatActivity {
+public class EditEntryActivity extends AppCompatActivity implements
+        EditEntryNumPadFragment.OnFragmentInteractionListener,
+        EditEntryDetailsFragment.OnFragmentInteractionListener {
     private Toolbar mToolbar;
     private TabLayout mTabBar;
     private ViewPager mViewPager;
