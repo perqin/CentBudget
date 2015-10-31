@@ -38,7 +38,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginEnd="16dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/detail"
         android:textSize="14sp"
         android:textColor="@color/text_black_54"/>
@@ -64,7 +64,7 @@
         android:layout_toLeftOf="@id/entry_date_text_view"
         android:layout_toStartOf="@id/entry_date_text_view"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/detail"
         android:textSize="14sp"
         android:textColor="@color/text_black_54"/>
