@@ -12,6 +12,7 @@ import com.perqin.centbudget.R;
 import com.perqin.centbudget.ui.adapter.EditEntryPagerAdapter;
 import com.perqin.centbudget.ui.fragment.EditEntryDetailsFragment;
 import com.perqin.centbudget.ui.fragment.EditEntryNumPadFragment;
+import com.perqin.centbudget.utils.DebugUtils;
 
 public class EditEntryActivity extends AppCompatActivity implements
         EditEntryNumPadFragment.OnFragmentInteractionListener,
@@ -53,5 +54,15 @@ public class EditEntryActivity extends AppCompatActivity implements
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onPadButtonClicked(int position) {
+        DebugUtils.makeToast(this, (position + 1) + "is clicked!");
+    }
+
+    @Override
+    public void onDelButtonLongClicked() {
+        DebugUtils.makeToast(this, "DEL is long pressed!");
     }
 }

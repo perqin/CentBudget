@@ -1,9 +1,9 @@
-<FrameLayout
+<GridView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/edit_entry_num_pad_grid_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.perqin.centbudget.ui.fragment.EditEntryNumPadFragment">
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-</FrameLayout>
+    android:numColumns="3"
+    android:stretchMode="columnWidth"
+    tools:context="com.perqin.centbudget.ui.fragment.EditEntryNumPadFragment"/>
