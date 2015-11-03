@@ -1,6 +1,7 @@
 package com.perqin.centbudget.ui.activity;
 
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,9 +18,12 @@ import com.perqin.centbudget.ui.fragment.EditEntryNumPadFragment;
 import com.perqin.centbudget.utils.AppUtils;
 import com.perqin.centbudget.utils.DebugUtils;
 
+import java.util.ArrayList;
+
 public class EditEntryActivity extends AppCompatActivity implements
         EditEntryNumPadFragment.OnFragmentInteractionListener,
         EditEntryDetailsFragment.OnFragmentInteractionListener {
+
     private Toolbar mToolbar;
     private TabLayout mTabBar;
     private ViewPager mViewPager;

@@ -1,9 +1,92 @@
-<FrameLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.perqin.centbudget.ui.fragment.EditEntryDetailsFragment">
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-</FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:id="@+id/edit_entry_date_button"
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:orientation="vertical"
+            android:paddingTop="20dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="16dp"
+            android:clickable="true">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:text="@string/date"
+                android:textSize="16sp"
+                android:textColor="@color/text_black_87"/>
+            <TextView
+                android:id="@+id/edit_entry_date_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:text="2015-10-24"
+                android:textSize="14sp"
+                android:textColor="@color/text_black_54"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/edit_entry_time_button"
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:orientation="vertical"
+            android:paddingTop="20dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="16dp"
+            android:clickable="true">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:text="@string/time"
+                android:textSize="16sp"
+                android:textColor="@color/text_black_87"/>
+            <TextView
+                android:id="@+id/edit_entry_time_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:text="23:59"
+                android:textSize="14sp"
+                android:textColor="@color/text_black_54"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/edit_entry_detail_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="72dp"
+            android:orientation="vertical"
+            android:paddingTop="20dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="16dp"
+            android:clickable="true">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:text="@string/detail"
+                android:textSize="16sp"
+                android:textColor="@color/text_black_87"/>
+            <TextView
+                android:id="@+id/edit_entry_detail_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="19dp"
+                android:text="Waimai"
+                android:textSize="14sp"
+                android:textColor="@color/text_black_54"/>
+        </RelativeLayout>
+    </LinearLayout>
+</ScrollView>

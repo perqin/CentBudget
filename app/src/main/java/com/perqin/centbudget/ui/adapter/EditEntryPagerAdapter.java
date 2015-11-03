@@ -10,7 +10,11 @@ import com.perqin.centbudget.R;
 import com.perqin.centbudget.ui.fragment.EditEntryDetailsFragment;
 import com.perqin.centbudget.ui.fragment.EditEntryNumPadFragment;
 
+import java.util.ArrayList;
+
 public class EditEntryPagerAdapter extends FragmentPagerAdapter {
+    private ArrayList<Fragment> mFragments = new ArrayList<>();
+
     private Context mApplicationContext;
 
     public EditEntryPagerAdapter(FragmentManager fm, Context context) {

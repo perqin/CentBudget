@@ -16,6 +16,8 @@
     <string name="add_entry">Add entry</string>
     <string name="edit_entry">Edit entry</string>
     <string name="delete_entry">Delete entry</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
 
     <string name="num_pad_1">1</string>
     <string name="num_pad_2">2</string>

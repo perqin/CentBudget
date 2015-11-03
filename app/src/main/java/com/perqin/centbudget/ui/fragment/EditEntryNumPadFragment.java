@@ -3,7 +3,6 @@ package com.perqin.centbudget.ui.fragment;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import android.widget.GridView;
 
 import com.perqin.centbudget.R;
 import com.perqin.centbudget.ui.adapter.EditEntryNumPadGridAdapter;
-import com.perqin.centbudget.utils.DebugUtils;
 
 public class EditEntryNumPadFragment extends Fragment {
     public static final int BUTTON_DIGIT = 0;
