@@ -7,11 +7,14 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.perqin.centbudget.R;
+import com.perqin.centbudget.ui.adapter.EditEntryNumPadGridAdapter;
 import com.perqin.centbudget.ui.adapter.EditEntryPagerAdapter;
 import com.perqin.centbudget.ui.fragment.EditEntryDetailsFragment;
 import com.perqin.centbudget.ui.fragment.EditEntryNumPadFragment;
+import com.perqin.centbudget.utils.AppUtils;
 import com.perqin.centbudget.utils.DebugUtils;
 
 public class EditEntryActivity extends AppCompatActivity implements
@@ -21,6 +24,17 @@ public class EditEntryActivity extends AppCompatActivity implements
     private TabLayout mTabBar;
     private ViewPager mViewPager;
     private EditEntryPagerAdapter mPagerAdapter;
+    private TextView mAmountTextView;
+
+    private double mAmount = 0;
+    private String mAmountString = "";
+
+    private void updateAmount() {
+        // TODO : set currency
+        mAmount = AppUtils.digitsStringToDouble(mAmountString);
+        mAmountTextView.setText(mAmountString + "$");
+        DebugUtils.makeToast(this, String.valueOf(mAmount));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,13 +44,19 @@ public class EditEntryActivity extends AppCompatActivity implements
         mToolbar = (Toolbar)findViewById(R.id.edit_entry_toolbar);
         mTabBar = (TabLayout)findViewById(R.id.edit_entry_tab_bar);
         mViewPager = (ViewPager)findViewById(R.id.edit_entry_view_pager);
-        mPagerAdapter = new EditEntryPagerAdapter(getSupportFragmentManager());
+        mPagerAdapter = new EditEntryPagerAdapter(getSupportFragmentManager(), this);
+        mAmountTextView = (TextView)findViewById(R.id.edit_entry_amount_text_view);
 
         mToolbar.setNavigationIcon(R.drawable.ic_done_white_24dp);
 
         mViewPager.setAdapter(mPagerAdapter);
 
         mTabBar.setupWithViewPager(mViewPager);
+        mTabBar.getTabAt(0).setIcon(R.drawable.ic_dialpad_white_24dp);
+        mTabBar.getTabAt(1).setIcon(R.drawable.ic_list_white_24dp);
+
+        mAmountString = "0";
+        updateAmount();
 
         setSupportActionBar(mToolbar);
     }
@@ -57,12 +77,28 @@ public class EditEntryActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onPadButtonClicked(int position) {
-        DebugUtils.makeToast(this, (position + 1) + "is clicked!");
+    public void onPadButtonClicked(int position, int type, int value) {
+        if (type == EditEntryNumPadFragment.BUTTON_DIGIT) {
+            if (mAmountString.equals("0")) {
+                mAmountString = String.valueOf(value);
+            } else {
+                mAmountString = mAmountString + String.valueOf(value);
+            }
+        } else if (type == EditEntryNumPadFragment.BUTTON_DOT && !mAmountString.contains(".")) {
+            mAmountString = mAmountString + ".";
+        } else if (type == EditEntryNumPadFragment.BUTTON_DEL && !mAmountString.equals("0")) {
+            if (mAmountString.length() == 1) {
+                mAmountString = "0";
+            } else {
+                mAmountString = mAmountString.substring(0, mAmountString.length() - 1);
+            }
+        }
+        updateAmount();
     }
 
     @Override
     public void onDelButtonLongClicked() {
-        DebugUtils.makeToast(this, "DEL is long pressed!");
+        mAmountString = "0";
+        updateAmount();
     }
 }

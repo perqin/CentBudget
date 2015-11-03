@@ -15,6 +15,10 @@ import com.perqin.centbudget.ui.adapter.EditEntryNumPadGridAdapter;
 import com.perqin.centbudget.utils.DebugUtils;
 
 public class EditEntryNumPadFragment extends Fragment {
+    public static final int BUTTON_DIGIT = 0;
+    public static final int BUTTON_DOT = 1;
+    public static final int BUTTON_DEL = 2;
+
     private OnFragmentInteractionListener mListener;
     private GridView mGridView;
     private EditEntryNumPadGridAdapter mAdapter;
@@ -42,7 +46,16 @@ public class EditEntryNumPadFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (mListener != null) {
-                    mListener.onPadButtonClicked(position);
+                    int t, v = -1;
+                    if (position <= 8 || position == 10) {
+                        t = BUTTON_DIGIT;
+                        v = position <= 8 ? position + 1 : 0;
+                    } else if (position == 9) {
+                        t = BUTTON_DOT;
+                    } else {
+                        t = BUTTON_DEL;
+                    }
+                    mListener.onPadButtonClicked(position, t, v);
                 }
             }
         });
@@ -79,7 +92,7 @@ public class EditEntryNumPadFragment extends Fragment {
     }
 
     public interface OnFragmentInteractionListener {
-        void onPadButtonClicked(int position);
+        void onPadButtonClicked(int position, int type, int value);
         void onDelButtonLongClicked();
     }
 }

@@ -21,4 +21,14 @@ public class AppUtils {
         bundle.putString(EXTRA_DISPLAY_NAME, account.display_name);
         return bundle;
     }
+
+    public static double digitsStringToDouble(String s) {
+        double d;
+        if (s.endsWith(".")) {
+            d = Double.parseDouble(s.substring(0, s.length() - 1));
+        } else {
+            d = Double.parseDouble(s);
+        }
+        return d;
+    }
 }
