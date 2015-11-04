@@ -25,29 +25,30 @@ import java.util.ArrayList;
 public class EditEntryActivity extends AppCompatActivity implements
         EditEntryNumPadFragment.OnFragmentInteractionListener,
         EditEntryDetailsFragment.OnFragmentInteractionListener {
+    @SuppressWarnings("all")
     private Toolbar mToolbar;
+    @SuppressWarnings("all")
     private TabLayout mTabBar;
+    @SuppressWarnings("all")
     private ViewPager mViewPager;
+    @SuppressWarnings("all")
     private EditEntryPagerAdapter mPagerAdapter;
     private TextView mAmountTextView;
 
-    private double mAmount = 0;
     private String mAmountString = "";
-//    private Bundle mExtrasFromIntent;
     private IetEntry mEditingEntry;
 
     private void updateAmount() {
         // TODO : set currency
-        mAmount = AppUtils.digitsStringToDouble(mAmountString);
+        mEditingEntry.value = AppUtils.digitsStringToDouble(mAmountString);
         mAmountTextView.setText(mAmountString + "$");
-        DebugUtils.makeToast(this, String.valueOf(mAmount));
+        DebugUtils.makeToast(this, String.valueOf(mEditingEntry.value));
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_entry);
-//        mExtrasFromIntent = getIntent().getExtras();
         mEditingEntry = IetEntry.fromBundle(getIntent().getExtras());
 
         mToolbar = (Toolbar)findViewById(R.id.edit_entry_toolbar);
@@ -111,5 +112,15 @@ public class EditEntryActivity extends AppCompatActivity implements
     public void onDelButtonLongClicked() {
         mAmountString = "0";
         updateAmount();
+    }
+
+    @Override
+    public void onDateStringChanged(String date) {
+        mEditingEntry.date = date;
+    }
+
+    @Override
+    public void onDetailStringChanged(String detail) {
+        mEditingEntry.detail = detail;
     }
 }
