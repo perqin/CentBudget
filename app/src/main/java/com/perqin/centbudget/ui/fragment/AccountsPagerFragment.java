@@ -1,6 +1,8 @@
 package com.perqin.centbudget.ui.fragment;
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,8 +15,7 @@ import com.perqin.centbudget.R;
 import com.perqin.centbudget.ui.adapter.AccountsRecyclerAdapter;
 
 public class AccountsPagerFragment extends Fragment {
-    // TOxDO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+//    private Context mActivityContext = null;
     private static final String ARG_PARAM1 = "param1";
 //    private static final String ARG_PARAM2 = "param2";
 
@@ -26,9 +27,9 @@ public class AccountsPagerFragment extends Fragment {
     private RecyclerView.LayoutManager mLayoutManager;
     private AccountsRecyclerAdapter mAdapter;
 
-    // TOxDO: Rename and change types and number of parameters
-    public static AccountsPagerFragment newInstance(String param1) {
+    public static AccountsPagerFragment newInstance(Context activity, String param1) {
         AccountsPagerFragment fragment = new AccountsPagerFragment();
+//        fragment.setActivityContext(activity);
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
 //        args.putString(ARG_PARAM2, param2);
@@ -37,6 +38,10 @@ public class AccountsPagerFragment extends Fragment {
     }
 
     public AccountsPagerFragment() {}
+
+//    public void setActivityContext(Context activity) {
+//        mActivityContext = activity;
+//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,7 +58,7 @@ public class AccountsPagerFragment extends Fragment {
 
         mRecyclerView = (RecyclerView)view.findViewById(R.id.accounts_pager_recycler_view);
         mLayoutManager = new LinearLayoutManager(getActivity());
-        mAdapter = new AccountsRecyclerAdapter();
+        mAdapter = new AccountsRecyclerAdapter(getActivity());
 
         if (getArguments() != null) {
             mAdapter.mString = getArguments().getString(ARG_PARAM1);

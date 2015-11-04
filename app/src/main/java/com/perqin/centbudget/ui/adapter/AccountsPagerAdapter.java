@@ -15,23 +15,23 @@ import java.util.ArrayList;
 public class AccountsPagerAdapter extends FragmentStatePagerAdapter {
     public static final int INDEX_LAST = -1;
 
-    private Context mContext;
+    private Context mActivityContext;
     private ArrayList<Account> mDataSet = new ArrayList<>();
 
     private OnDataSetChangedListener mListener = null;
 
     public AccountsPagerAdapter(Context context, FragmentManager fm) {
         super(fm);
-        mContext = context;
+        mActivityContext = context;
     }
 
     public void addAccount(Account account) {
-        DbFactory.createInAccounts(mContext, account);
+        DbFactory.createInAccounts(mActivityContext, account);
         refreshAccounts(getCount() - 1);
     }
 
     public void deleteAccount(int position) {
-        DbFactory.deleteInAccount(mContext, mDataSet.get(position));
+        DbFactory.deleteInAccount(mActivityContext, mDataSet.get(position));
         int current = ((position == getCount() - 1) ? (position - 1) : position);
         refreshAccounts(current);
     }
@@ -44,7 +44,7 @@ public class AccountsPagerAdapter extends FragmentStatePagerAdapter {
     public void updateDataSet() {
         mDataSet.clear();
         addAccountAll();
-        ArrayList<Account> list = DbFactory.readAllInAccounts(mContext);
+        ArrayList<Account> list = DbFactory.readAllInAccounts(mActivityContext);
         for (int i = 0; i < list.size(); ++i) {
             mDataSet.add(list.get(i));
         }
@@ -54,7 +54,7 @@ public class AccountsPagerAdapter extends FragmentStatePagerAdapter {
         // TODO
         Account all = new Account();
         all._id = 2333;
-        all.display_name = mContext.getString(R.string.all);
+        all.display_name = mActivityContext.getString(R.string.all);
         mDataSet.add(all);
     }
 
@@ -75,7 +75,7 @@ public class AccountsPagerAdapter extends FragmentStatePagerAdapter {
     // TODO : Args
     @Override
     public Fragment getItem(int position) {
-        return AccountsPagerFragment.newInstance("233 : " + mDataSet.get(position).display_name);
+        return AccountsPagerFragment.newInstance(mActivityContext, "233 : " + mDataSet.get(position).display_name);
     }
 
     public void notifyDataSetChangedWithCurrent(int current) {

@@ -19,18 +19,18 @@
     <string name="date">Date</string>
     <string name="time">Time</string>
 
-    <string name="num_pad_1">1</string>
-    <string name="num_pad_2">2</string>
-    <string name="num_pad_3">3</string>
-    <string name="num_pad_dot">.</string>
-    <string name="num_pad_4">4</string>
-    <string name="num_pad_5">5</string>
-    <string name="num_pad_6">6</string>
-    <string name="num_pad_0">0</string>
-    <string name="num_pad_7">7</string>
-    <string name="num_pad_8">8</string>
-    <string name="num_pad_9">9</string>
-    <string name="num_pad_del">DEL</string>
+    <string name="num_pad_1" translatable="false">1</string>
+    <string name="num_pad_2" translatable="false">2</string>
+    <string name="num_pad_3" translatable="false">3</string>
+    <string name="num_pad_dot" translatable="false">.</string>
+    <string name="num_pad_4" translatable="false">4</string>
+    <string name="num_pad_5" translatable="false">5</string>
+    <string name="num_pad_6" translatable="false">6</string>
+    <string name="num_pad_0" translatable="false">0</string>
+    <string name="num_pad_7" translatable="false">7</string>
+    <string name="num_pad_8" translatable="false">8</string>
+    <string name="num_pad_9" translatable="false">9</string>
+    <string name="num_pad_del" translatable="false">DEL</string>
 
     <string name="app_name">Cent Budget</string>
     <string name="hello_world">Hello world!</string>

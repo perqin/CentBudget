@@ -1,6 +1,7 @@
 package com.perqin.centbudget.ui.fragment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -18,7 +19,10 @@ import android.widget.Toast;
 import com.perqin.centbudget.R;
 import com.perqin.centbudget.db.Account;
 import com.perqin.centbudget.db.DbFactory;
+import com.perqin.centbudget.ui.activity.EditAccountActivity;
+import com.perqin.centbudget.ui.activity.EditEntryActivity;
 import com.perqin.centbudget.ui.adapter.AccountsPagerAdapter;
+import com.perqin.centbudget.utils.AppUtils;
 
 public class AccountsFragment extends Fragment
         implements
@@ -82,7 +86,7 @@ public class AccountsFragment extends Fragment
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_accounts, container, false);
 
         mToolbar = (Toolbar)view.findViewById(R.id.accounts_title_toolbar);
@@ -131,7 +135,9 @@ public class AccountsFragment extends Fragment
             @Override
             public void onClick(View v) {
                 // TODO
-                Toast.makeText(getActivity(), "FAB is clicked", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), EditEntryActivity.class);
+                intent.putExtra(AppUtils.EXTRA_REQUEST_CODE, AppUtils.REQUEST_ADD_ENTRY);
+                getActivity().startActivityForResult(intent, AppUtils.REQUEST_ADD_ENTRY);
             }
         });
 
@@ -182,7 +188,6 @@ public class AccountsFragment extends Fragment
 
     @Override
     public void onDataSetChanged(int current) {
-        // TODO : handle last
         mViewPager.setCurrentItem(0);
         mTabBar.setupWithViewPager(mViewPager);
         if (current == AccountsPagerAdapter.INDEX_LAST) {

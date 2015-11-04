@@ -88,6 +88,12 @@ public class MainActivity extends AppCompatActivity implements
                         break;
                 }
                 break;
+            case AppUtils.REQUEST_ADD_ENTRY:
+                Log.d("REQ", "add entry result");
+                break;
+            case AppUtils.REQUEST_EDIT_ENTRY:
+                Log.d("REQ", "edit entry result");
+                break;
             default:
                 break;
         }

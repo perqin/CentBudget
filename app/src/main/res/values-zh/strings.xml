@@ -24,4 +24,7 @@
     <string name="edit_entry">编辑条目</string>
     <string name="title_activity_edit_entry">添加或编辑条目</string>
     <string name="delete_entry">删除条目</string>
+    <string name="date">日期</string>
+    <string name="num_pad_0"></string>
+    <string name="time">时间</string>
 </resources>

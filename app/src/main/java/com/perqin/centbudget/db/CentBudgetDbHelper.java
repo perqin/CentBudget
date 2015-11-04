@@ -74,7 +74,7 @@ public class CentBudgetDbHelper extends SQLiteOpenHelper {
             + ", " + COLUMN_ACCOUNT_TYPE + " INTEGER "
             + ", " + COLUMN_ACCOUNT_CATEGORY_ID + " INTEGER "
             + ", " + COLUMN_ACCOUNT_DETAIL + " TEXT "
-            + ", " + COLUMN_ACCOUNT_VALUE + " INTEGER "
+            + ", " + COLUMN_ACCOUNT_VALUE + " REAL "
             + ", " + COLUMN_ACCOUNT_TRANSFER_INFO + " TEXT "
             + ")";
 

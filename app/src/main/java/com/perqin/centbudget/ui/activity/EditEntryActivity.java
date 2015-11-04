@@ -6,11 +6,13 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.perqin.centbudget.R;
+import com.perqin.centbudget.db.IetEntry;
 import com.perqin.centbudget.ui.adapter.EditEntryNumPadGridAdapter;
 import com.perqin.centbudget.ui.adapter.EditEntryPagerAdapter;
 import com.perqin.centbudget.ui.fragment.EditEntryDetailsFragment;
@@ -23,7 +25,6 @@ import java.util.ArrayList;
 public class EditEntryActivity extends AppCompatActivity implements
         EditEntryNumPadFragment.OnFragmentInteractionListener,
         EditEntryDetailsFragment.OnFragmentInteractionListener {
-
     private Toolbar mToolbar;
     private TabLayout mTabBar;
     private ViewPager mViewPager;
@@ -32,6 +33,8 @@ public class EditEntryActivity extends AppCompatActivity implements
 
     private double mAmount = 0;
     private String mAmountString = "";
+//    private Bundle mExtrasFromIntent;
+    private IetEntry mEditingEntry;
 
     private void updateAmount() {
         // TODO : set currency
@@ -44,11 +47,13 @@ public class EditEntryActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_entry);
+//        mExtrasFromIntent = getIntent().getExtras();
+        mEditingEntry = IetEntry.fromBundle(getIntent().getExtras());
 
         mToolbar = (Toolbar)findViewById(R.id.edit_entry_toolbar);
         mTabBar = (TabLayout)findViewById(R.id.edit_entry_tab_bar);
         mViewPager = (ViewPager)findViewById(R.id.edit_entry_view_pager);
-        mPagerAdapter = new EditEntryPagerAdapter(getSupportFragmentManager(), this);
+        mPagerAdapter = new EditEntryPagerAdapter(getSupportFragmentManager(), mEditingEntry);
         mAmountTextView = (TextView)findViewById(R.id.edit_entry_amount_text_view);
 
         mToolbar.setNavigationIcon(R.drawable.ic_done_white_24dp);
@@ -56,7 +61,9 @@ public class EditEntryActivity extends AppCompatActivity implements
         mViewPager.setAdapter(mPagerAdapter);
 
         mTabBar.setupWithViewPager(mViewPager);
+        //noinspection ConstantConditions
         mTabBar.getTabAt(0).setIcon(R.drawable.ic_dialpad_white_24dp);
+        //noinspection ConstantConditions
         mTabBar.getTabAt(1).setIcon(R.drawable.ic_list_white_24dp);
 
         mAmountString = "0";
