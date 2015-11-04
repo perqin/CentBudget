@@ -18,6 +18,9 @@
     <string name="delete_entry">Delete entry</string>
     <string name="date">Date</string>
     <string name="time">Time</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="edit_detail">Edit detail</string>
 
     <string name="num_pad_1" translatable="false">1</string>
     <string name="num_pad_2" translatable="false">2</string>

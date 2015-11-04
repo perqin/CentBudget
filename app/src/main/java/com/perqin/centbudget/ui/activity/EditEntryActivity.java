@@ -42,7 +42,6 @@ public class EditEntryActivity extends AppCompatActivity implements
         // TODO : set currency
         mEditingEntry.value = AppUtils.digitsStringToDouble(mAmountString);
         mAmountTextView.setText(mAmountString + "$");
-        DebugUtils.makeToast(this, String.valueOf(mEditingEntry.value));
     }
 
     @Override

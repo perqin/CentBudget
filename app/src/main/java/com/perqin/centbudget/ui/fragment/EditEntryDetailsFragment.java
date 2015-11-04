@@ -3,6 +3,7 @@ package com.perqin.centbudget.ui.fragment;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,23 +12,20 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.perqin.centbudget.R;
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import android.text.format.DateFormat;
+import android.widget.TimePicker;
+
 import java.util.Date;
 
-public class EditEntryDetailsFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
+public class EditEntryDetailsFragment extends Fragment {
     private static final String ARG_DATE = "DATE";
     private static final String ARG_TIME = "TIME";
     private static final String ARG_DETAIL = "DETAIL";
 
-    private RelativeLayout mDateItem;
     private TextView mDateTextView;
-    private RelativeLayout mTimeItem;
     private TextView mTimeTextView;
-    private RelativeLayout mDetailItem;
     private TextView mDetailTextView;
-
 
     private String mDate;
     private String mTime;
@@ -72,11 +70,11 @@ public class EditEntryDetailsFragment extends Fragment implements DatePickerDial
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_edit_entry_details, container, false);
 
-        mDateItem = (RelativeLayout)v.findViewById(R.id.edit_entry_date_button);
+        RelativeLayout mDateItem = (RelativeLayout) v.findViewById(R.id.edit_entry_date_button);
         mDateTextView = (TextView)v.findViewById(R.id.edit_entry_date_text_view);
-        mTimeItem = (RelativeLayout)v.findViewById(R.id.edit_entry_time_button);
+        RelativeLayout mTimeItem = (RelativeLayout) v.findViewById(R.id.edit_entry_time_button);
         mTimeTextView = (TextView)v.findViewById(R.id.edit_entry_time_text_view);
-        mDetailItem = (RelativeLayout)v.findViewById(R.id.edit_entry_detail_button);
+        RelativeLayout mDetailItem = (RelativeLayout) v.findViewById(R.id.edit_entry_detail_button);
         mDetailTextView = (TextView)v.findViewById(R.id.edit_entry_detail_text_view);
 
         mDateItem.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +84,7 @@ public class EditEntryDetailsFragment extends Fragment implements DatePickerDial
                 datePickerFragment.setOnDateSetListener(new DatePickerFragment.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int yearSince1900, int monthOfYear, int dayOfMonth) {
+                        //noinspection deprecation
                         Date date = new Date(yearSince1900, monthOfYear, dayOfMonth);
                         mDate = DateFormat.format("yyyy-MM-dd", date).toString();
                         updateDate();
@@ -100,7 +99,18 @@ public class EditEntryDetailsFragment extends Fragment implements DatePickerDial
         mTimeItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO
+                TimePickerFragment timePickerFragment = new TimePickerFragment();
+                timePickerFragment.setOnTimeSetListener(new TimePickerFragment.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        Log.d("TIME", String.valueOf(hourOfDay));
+                        //noinspection deprecation
+                        Date date = new Date(0, 0, 0, hourOfDay, minute);
+                        mTime = DateFormat.format("kk:mm", date).toString();
+                        updateDate();
+                    }
+                });
+                timePickerFragment.show(getFragmentManager(), "timePickerFragment@EditEntryDetailsFragment");
             }
         });
 
@@ -109,7 +119,16 @@ public class EditEntryDetailsFragment extends Fragment implements DatePickerDial
         mDetailItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO
+                EditEntryDetailDialogFragment editEntryDetailDialogFragment = new EditEntryDetailDialogFragment();
+                editEntryDetailDialogFragment.setDefaultDetailText(mDetail);
+                editEntryDetailDialogFragment.setOnDetailChangedListener(new EditEntryDetailDialogFragment.OnDetailChangedListener() {
+                    @Override
+                    public void onDetailChanged(String detail) {
+                        mDetail = detail;
+                        updateDetail();
+                    }
+                });
+                editEntryDetailDialogFragment.show(getFragmentManager(), "editEntryDetailDialogFragment@EditEntryDetailsFragment");
             }
         });
 
@@ -134,11 +153,6 @@ public class EditEntryDetailsFragment extends Fragment implements DatePickerDial
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
-
-    @Override
-    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        //
     }
 
     public interface OnFragmentInteractionListener {
