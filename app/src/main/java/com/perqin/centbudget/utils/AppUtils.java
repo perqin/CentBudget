@@ -12,19 +12,8 @@ public class AppUtils {
     public static final int REQUEST_ADD_ENTRY = 2;
     public static final int REQUEST_EDIT_ENTRY = 3;
 
-
     // Extra keys
     public static final String EXTRA_REQUEST_CODE = "REQUEST_CODE";
-    public static final String EXTRA_ID = "ID";
-    public static final String EXTRA_DISPLAY_NAME = "DISPLAY_NAME";
-    public static final String EXTRA_CURRENT = "CURRENT";
-
-    public static Bundle getExtrasFromAccount(Account account) {
-        Bundle bundle = new Bundle();
-        bundle.putInt(EXTRA_ID, account._id);
-        bundle.putString(EXTRA_DISPLAY_NAME, account.display_name);
-        return bundle;
-    }
 
     public static double digitsStringToDouble(String s) {
         double d;

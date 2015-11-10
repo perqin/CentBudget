@@ -59,6 +59,11 @@ public class AccountsFragment extends Fragment
         refreshViewPager(AccountsPagerAdapter.INDEX_LAST);
     }
 
+    public void updateAccount(Account account) {
+        mPagerAdapter.updateAccount(getActivity(), account);
+        refreshViewPager(mViewPager.getCurrentItem());
+    }
+
     private void deleteAccount() {
         // TODO : Confirm delete
         int newCurrent = mPagerAdapter.deleteAccount(getActivity(), mViewPager.getCurrentItem());
@@ -152,7 +157,6 @@ public class AccountsFragment extends Fragment
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_add_account:
-//                addAccount();
                 if (mListener != null) {
                     mListener.onAddAccountActionClicked();
                 }
@@ -169,17 +173,6 @@ public class AccountsFragment extends Fragment
                 return super.onOptionsItemSelected(item);
         }
     }
-
-//    @Override
-//    public void onDataSetChanged(int current) {
-//        mViewPager.setCurrentItem(0);
-//        mTabBar.setupWithViewPager(mViewPager);
-//        if (current == AccountsPagerAdapter.INDEX_LAST) {
-//            mViewPager.setCurrentItem(mPagerAdapter.getCount() - 1);
-//        } else {
-//            mViewPager.setCurrentItem(current);
-//        }
-//    }
 
     public interface OnFragmentInteractionListener {
         void onNavigationIconClicked();

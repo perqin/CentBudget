@@ -78,7 +78,18 @@ public class MainActivity extends AppCompatActivity implements
                 switch (resultCode) {
                     case EditAccountActivity.RES_OK:
                         if (mCurrentNavFragment instanceof AccountsFragment) {
-                            ((AccountsFragment) mCurrentNavFragment).addAccount(Account.fromBundle(data.getExtras()));
+                            ((AccountsFragment)mCurrentNavFragment).addAccount(Account.fromBundle(data.getExtras()));
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case AppUtils.REQUEST_EDIT_ACCOUNT:
+                switch (resultCode) {
+                    case EditAccountActivity.RES_OK:
+                        if (mCurrentNavFragment instanceof AccountsFragment) {
+                            ((AccountsFragment)mCurrentNavFragment).updateAccount(Account.fromBundle(data.getExtras()));
                         }
                         break;
                     default:
@@ -129,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onEditAccountActionClicked(Account account) {
         Intent intent = new Intent(this, EditAccountActivity.class);
-        intent.putExtras(AppUtils.getExtrasFromAccount(account));
+        intent.putExtras(Account.toBundle(account));
         startActivityForResult(intent, AppUtils.REQUEST_EDIT_ACCOUNT);
     }
 

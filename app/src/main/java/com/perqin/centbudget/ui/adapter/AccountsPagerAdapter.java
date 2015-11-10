@@ -18,8 +18,6 @@ public class AccountsPagerAdapter extends FragmentStatePagerAdapter {
     private Context mActivityContext;
     private ArrayList<Account> mDataSet = new ArrayList<>();
 
-//    private OnDataSetChangedListener mListener = null;
-
     public AccountsPagerAdapter(Context context, FragmentManager fm) {
         super(fm);
         mActivityContext = context;
@@ -27,6 +25,10 @@ public class AccountsPagerAdapter extends FragmentStatePagerAdapter {
 
     public void addAccount(Context context, Account account) {
         DbFactory.createInAccounts(context, account);
+    }
+
+    public void updateAccount(Context context, Account account) {
+        DbFactory.updateInAccounts(context, account);
     }
 
     public int deleteAccount(Context context, int position) {

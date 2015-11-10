@@ -17,19 +17,16 @@ public class EditAccountActivity extends AppCompatActivity {
     public static final int RES_OK = 0;
     public static final int RES_CANCEL = 1;
 
-    private Bundle mExtrasFromIntent;
     private Toolbar mToolbar;
     private EditText mAccountNameEditText;
+    private Account mEditingAccount;
+    private int mRequestCode;
 
     private void saveChanges() {
-//        Account account = new Account();
-//        account.display_name = mAccountNameEditText.getText().toString();
-        if (mExtrasFromIntent.getInt(AppUtils.EXTRA_REQUEST_CODE) == AppUtils.REQUEST_ADD_ACCOUNT) {
-//            DbFactory.createInAccounts(this, account);
-            Intent intent = new Intent();
-            intent.putExtra(Account.EXTRA_DISPLAY_NAME, mAccountNameEditText.getText().toString());
-            setResult(RES_OK, intent);
-        }
+        mEditingAccount.display_name = mAccountNameEditText.getText().toString();
+        Intent intent = new Intent();
+        intent.putExtras(Account.toBundle(mEditingAccount));
+        setResult(RES_OK, intent);
         finish();
     }
 
@@ -40,6 +37,7 @@ public class EditAccountActivity extends AppCompatActivity {
 
     private void confirmDiscard() {
         // TODO
+        setResult(RES_CANCEL);
         finish();
     }
 
@@ -47,17 +45,20 @@ public class EditAccountActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_account);
-        mExtrasFromIntent = getIntent().getExtras();
 
+        Bundle bundle = getIntent().getExtras();
+        mRequestCode = bundle.getInt(AppUtils.EXTRA_REQUEST_CODE);
         mToolbar = (Toolbar)findViewById(R.id.edit_account_toolbar);
         mAccountNameEditText = (EditText)findViewById(R.id.account_name_edit_text);
 
         mToolbar.setNavigationIcon(R.drawable.ic_done_white_24dp);
-        if (mExtrasFromIntent.getInt(AppUtils.EXTRA_REQUEST_CODE) == AppUtils.REQUEST_ADD_ACCOUNT) {
+        if (mRequestCode == AppUtils.REQUEST_ADD_ACCOUNT) {
             mToolbar.setTitle(R.string.add_account);
+            mEditingAccount = new Account();
         } else {
             mToolbar.setTitle(R.string.edit_account);
-            mAccountNameEditText.setText(mExtrasFromIntent.getString(AppUtils.EXTRA_DISPLAY_NAME));
+            mEditingAccount = Account.fromBundle(bundle);
+            mAccountNameEditText.setText(mEditingAccount.display_name);
         }
 
         setSupportActionBar(mToolbar);
