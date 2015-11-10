@@ -100,7 +100,7 @@ public class CentBudgetDbHelper extends SQLiteOpenHelper {
     }
 
     public ArrayList<Account> readAllInAccounts() {
-        ArrayList<Account> list = new ArrayList<Account>();
+        ArrayList<Account> list = new ArrayList<>();
         String query = "SELECT * FROM " + TABLE_ACCOUNTS;
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(query, null);
@@ -114,6 +114,17 @@ public class CentBudgetDbHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         return list;
+    }
+
+    // parameter account has _id of the account to be updated, with updated content
+    public boolean updateInAccounts(Account account) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COLUMN_ACCOUNTS_DISPLAY_NAME, account.display_name);
+        String where = COLUMN_ID + " = ?";
+        String[] args = {String.valueOf(account._id)};
+        int updatedCount = database.update(TABLE_ACCOUNTS, contentValues, where, args);
+        return updatedCount > 0;
     }
 
     public boolean deleteInAccounts(Account account) {

@@ -26,16 +26,8 @@ import com.perqin.centbudget.utils.AppUtils;
 
 public class AccountsFragment extends Fragment
         implements
-        Toolbar.OnMenuItemClickListener,
-        AccountsPagerAdapter.OnDataSetChangedListener {
-      // TOxDO: Rename parameter arguments, choose names that match
-//    private static final String ARG_PARAM1 = "param1";
-//    private static final String ARG_PARAM2 = "param2";
-
-    // TOxDO: Rename and change types of parameters
-//    private String mParam1;
-//    private String mParam2;
-
+        Toolbar.OnMenuItemClickListener {
+//        AccountsPagerAdapter.OnDataSetChangedListener {
     private Toolbar mToolbar;
     private TabLayout mTabBar;
     private ViewPager mViewPager;
@@ -44,15 +36,8 @@ public class AccountsFragment extends Fragment
 
     private OnFragmentInteractionListener mListener;
 
-    // TOxDO: Rename and change types and number of parameters
-    // public static AccountsFragment newInstance(String param1, String param2);
     public static AccountsFragment newInstance(OnFragmentInteractionListener l) {
-        AccountsFragment fragment = new AccountsFragment();
-//        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
-        return fragment;
+        return new AccountsFragment();
     }
 
     public AccountsFragment() {}
@@ -83,10 +68,6 @@ public class AccountsFragment extends Fragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-//        }
     }
 
     @Override
@@ -132,8 +113,10 @@ public class AccountsFragment extends Fragment
             }
         });
 
-        mPagerAdapter.setOnDataSetChangedListener(this);
-        mPagerAdapter.refreshAccounts(0);
+        mPagerAdapter.updateDataSet();
+        mPagerAdapter.notifyDataSetChanged();
+        mViewPager.setCurrentItem(0);
+        mTabBar.setupWithViewPager(mViewPager);
 
         mAddEntryFAB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,16 +170,16 @@ public class AccountsFragment extends Fragment
         }
     }
 
-    @Override
-    public void onDataSetChanged(int current) {
-        mViewPager.setCurrentItem(0);
-        mTabBar.setupWithViewPager(mViewPager);
-        if (current == AccountsPagerAdapter.INDEX_LAST) {
-            mViewPager.setCurrentItem(mPagerAdapter.getCount() - 1);
-        } else {
-            mViewPager.setCurrentItem(current);
-        }
-    }
+//    @Override
+//    public void onDataSetChanged(int current) {
+//        mViewPager.setCurrentItem(0);
+//        mTabBar.setupWithViewPager(mViewPager);
+//        if (current == AccountsPagerAdapter.INDEX_LAST) {
+//            mViewPager.setCurrentItem(mPagerAdapter.getCount() - 1);
+//        } else {
+//            mViewPager.setCurrentItem(current);
+//        }
+//    }
 
     public interface OnFragmentInteractionListener {
         void onNavigationIconClicked();

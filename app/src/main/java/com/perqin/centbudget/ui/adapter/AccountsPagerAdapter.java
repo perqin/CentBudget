@@ -18,7 +18,7 @@ public class AccountsPagerAdapter extends FragmentStatePagerAdapter {
     private Context mActivityContext;
     private ArrayList<Account> mDataSet = new ArrayList<>();
 
-    private OnDataSetChangedListener mListener = null;
+//    private OnDataSetChangedListener mListener = null;
 
     public AccountsPagerAdapter(Context context, FragmentManager fm) {
         super(fm);
@@ -27,19 +27,17 @@ public class AccountsPagerAdapter extends FragmentStatePagerAdapter {
 
     public void addAccount(Context context, Account account) {
         DbFactory.createInAccounts(context, account);
-//        refreshAccounts(getCount() - 1);
     }
 
     public int deleteAccount(Context context, int position) {
         DbFactory.deleteInAccount(context, mDataSet.get(position));
         return ((position == getCount() - 1) ? (position - 1) : position);
-//        refreshAccounts(current);
     }
 
-    public void refreshAccounts(int position) {
-        updateDataSet();
-        notifyDataSetChangedWithCurrent(position);
-    }
+//    public void refreshAccounts(int position) {
+//        updateDataSet();
+//        notifyDataSetChangedWithCurrent(position);
+//    }
 
     public void updateDataSet() {
         mDataSet.clear();
@@ -78,32 +76,28 @@ public class AccountsPagerAdapter extends FragmentStatePagerAdapter {
         return AccountsPagerFragment.newInstance(mActivityContext, "233 : " + mDataSet.get(position).display_name);
     }
 
-    public void notifyDataSetChangedWithCurrent(int current) {
-        super.notifyDataSetChanged();
-        if (mListener != null) {
-            mListener.onDataSetChanged(current);
-        }
-    }
+//    public void notifyDataSetChangedWithCurrent(int current) {
+//        super.notifyDataSetChanged();
+//        if (mListener != null) {
+//            mListener.onDataSetChanged(current);
+//        }
+//    }
 
-    @Override
-    public void notifyDataSetChanged() {
-        notifyDataSetChangedWithCurrent(0);
-    }
-
-    public void notifyDataSetChangedWithoutCur() {
-        super.notifyDataSetChanged();
-    }
+//    @Override
+//    public void notifyDataSetChanged() {
+//        notifyDataSetChangedWithCurrent(0);
+//    }
 
     @Override
     public int getItemPosition(Object object) {
         return POSITION_NONE;
     }
 
-    public interface OnDataSetChangedListener {
-        void onDataSetChanged(int current);
-    }
+//    public interface OnDataSetChangedListener {
+//        void onDataSetChanged(int current);
+//    }
 
-    public void setOnDataSetChangedListener(OnDataSetChangedListener l) {
-        mListener = l;
-    }
+//    public void setOnDataSetChangedListener(OnDataSetChangedListener l) {
+//        mListener = l;
+//    }
 }
