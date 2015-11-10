@@ -25,9 +25,9 @@ public class AccountsPagerAdapter extends FragmentStatePagerAdapter {
         mActivityContext = context;
     }
 
-    public void addAccount(Account account) {
-        DbFactory.createInAccounts(mActivityContext, account);
-        refreshAccounts(getCount() - 1);
+    public void addAccount(Context context, Account account) {
+        DbFactory.createInAccounts(context, account);
+//        refreshAccounts(getCount() - 1);
     }
 
     public void deleteAccount(int position) {
@@ -88,6 +88,10 @@ public class AccountsPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public void notifyDataSetChanged() {
         notifyDataSetChangedWithCurrent(0);
+    }
+
+    public void notifyDataSetChangedWithoutCur() {
+        super.notifyDataSetChanged();
     }
 
     @Override

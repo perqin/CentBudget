@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements
                 switch (resultCode) {
                     case EditAccountActivity.RES_OK:
                         if (mCurrentNavFragment instanceof AccountsFragment) {
-                            ((AccountsFragment)mCurrentNavFragment).refreshViewPager(AccountsPagerAdapter.INDEX_LAST);
+                            ((AccountsFragment) mCurrentNavFragment).addAccount(Account.fromBundle(data.getExtras()));
                         }
                         break;
                     default:

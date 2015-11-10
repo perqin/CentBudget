@@ -22,14 +22,13 @@ public class EditAccountActivity extends AppCompatActivity {
     private EditText mAccountNameEditText;
 
     private void saveChanges() {
-        // TODO
-        Account account = new Account();
-        account.display_name = mAccountNameEditText.getText().toString();
+//        Account account = new Account();
+//        account.display_name = mAccountNameEditText.getText().toString();
         if (mExtrasFromIntent.getInt(AppUtils.EXTRA_REQUEST_CODE) == AppUtils.REQUEST_ADD_ACCOUNT) {
-            DbFactory.createInAccounts(this, account);
-//            Intent intent = new Intent();
-//            intent.putExtra(AppUtils.EXTRA_CURRENT, );
-            setResult(RES_OK);
+//            DbFactory.createInAccounts(this, account);
+            Intent intent = new Intent();
+            intent.putExtra(Account.EXTRA_DISPLAY_NAME, mAccountNameEditText.getText().toString());
+            setResult(RES_OK, intent);
         }
         finish();
     }

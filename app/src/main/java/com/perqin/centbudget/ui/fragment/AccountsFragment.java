@@ -62,14 +62,16 @@ public class AccountsFragment extends Fragment
     }
 
     public void refreshViewPager(int current) {
-        mPagerAdapter.refreshAccounts(current);
+        mViewPager.setAdapter(null);
+        mPagerAdapter.updateDataSet();
+        mViewPager.setAdapter(mPagerAdapter);
+        mTabBar.setupWithViewPager(mViewPager);
+        mViewPager.setCurrentItem(current == AccountsPagerAdapter.INDEX_LAST ? mPagerAdapter.getCount() - 1 : current);
     }
 
-    // TODO
-    private void addAccount() {
-        Account account = new Account();
-        account.display_name = "Acc " + mPagerAdapter.getCount();
-        mPagerAdapter.addAccount(account);
+    public void addAccount(Account account) {
+        mPagerAdapter.addAccount(getActivity(), account);
+        refreshViewPager(AccountsPagerAdapter.INDEX_LAST);
     }
 
     private void deleteAccount() {
