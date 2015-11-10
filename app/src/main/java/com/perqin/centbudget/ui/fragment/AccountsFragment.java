@@ -75,7 +75,9 @@ public class AccountsFragment extends Fragment
     }
 
     private void deleteAccount() {
-        mPagerAdapter.deleteAccount(mViewPager.getCurrentItem());
+        // TODO : Confirm delete
+        int newCurrent = mPagerAdapter.deleteAccount(getActivity(), mViewPager.getCurrentItem());
+        refreshViewPager(newCurrent);
     }
 
     @Override
@@ -179,9 +181,6 @@ public class AccountsFragment extends Fragment
                 return true;
             case R.id.action_delete_account:
                 deleteAccount();
-//                if (mListener != null) {
-//                    mListener.onDeleteAccountActionClicked(mPagerAdapter.getAccount(mViewPager.getCurrentItem()));
-//                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -203,7 +202,6 @@ public class AccountsFragment extends Fragment
         void onNavigationIconClicked();
         void onAddAccountActionClicked();
         void onEditAccountActionClicked(Account account);
-        void onDeleteAccountActionClicked(Account account);
         void onAddEntryFABClicked();
     }
 }

@@ -30,10 +30,10 @@ public class AccountsPagerAdapter extends FragmentStatePagerAdapter {
 //        refreshAccounts(getCount() - 1);
     }
 
-    public void deleteAccount(int position) {
-        DbFactory.deleteInAccount(mActivityContext, mDataSet.get(position));
-        int current = ((position == getCount() - 1) ? (position - 1) : position);
-        refreshAccounts(current);
+    public int deleteAccount(Context context, int position) {
+        DbFactory.deleteInAccount(context, mDataSet.get(position));
+        return ((position == getCount() - 1) ? (position - 1) : position);
+//        refreshAccounts(current);
     }
 
     public void refreshAccounts(int position) {

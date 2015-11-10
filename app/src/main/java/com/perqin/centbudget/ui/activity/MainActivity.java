@@ -11,7 +11,6 @@ import android.view.MenuItem;
 
 import com.perqin.centbudget.R;
 import com.perqin.centbudget.db.Account;
-import com.perqin.centbudget.ui.adapter.AccountsPagerAdapter;
 import com.perqin.centbudget.ui.fragment.AccountsFragment;
 import com.perqin.centbudget.utils.AppUtils;
 
@@ -132,11 +131,6 @@ public class MainActivity extends AppCompatActivity implements
         Intent intent = new Intent(this, EditAccountActivity.class);
         intent.putExtras(AppUtils.getExtrasFromAccount(account));
         startActivityForResult(intent, AppUtils.REQUEST_EDIT_ACCOUNT);
-    }
-
-    @Override
-    public void onDeleteAccountActionClicked(Account account) {
-        // TODO
     }
 
     @Override
