@@ -15,8 +15,6 @@ import com.perqin.centbudget.ui.adapter.AccountsPagerAdapter;
 import com.perqin.centbudget.ui.fragment.AccountsFragment;
 import com.perqin.centbudget.utils.AppUtils;
 
-import java.util.ArrayList;
-
 public class MainActivity extends AppCompatActivity implements
         AccountsFragment.OnFragmentInteractionListener,
         NavigationView.OnNavigationItemSelectedListener {
